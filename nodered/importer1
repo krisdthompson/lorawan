@@ -1,1 +1,419 @@
-
+[
+    {
+        "id": "5323d7e5.5956d8",
+        "type": "tab",
+        "label": "MQTT-2-InfluxDB",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "394b4e21.d66622",
+        "type": "tab",
+        "label": "SMU-MQTT-Store",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a25dc534.d849a8",
+        "type": "tab",
+        "label": "TTN",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "dd1c5723.41d748",
+        "type": "mqtt-broker",
+        "name": "broker.example.com",
+        "broker": "broker.example.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "6c5bf526.9cf42c",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "iotdashdb",
+        "name": "iotdashdb",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "1a652118.8923af",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "iotdashdb",
+        "name": "iotdashdb",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "6c415776.2cb5b8",
+        "type": "mqtt-broker",
+        "name": "TTN",
+        "broker": "us-west.thethings.network",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "bb267dab.705ff",
+        "type": "mqtt in",
+        "z": "5323d7e5.5956d8",
+        "name": "/v1.6/devices/#",
+        "topic": "/v1.6/devices/#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "dd1c5723.41d748",
+        "x": 100,
+        "y": 280,
+        "wires": [
+            [
+                "42177778.e4eda8",
+                "9d101759.bc4a48"
+            ]
+        ]
+    },
+    {
+        "id": "e3e47303.2a889",
+        "type": "influxdb out",
+        "z": "5323d7e5.5956d8",
+        "influxdb": "1a652118.8923af",
+        "name": "Storeit",
+        "measurement": "tester",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 630,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "9d101759.bc4a48",
+        "type": "change",
+        "z": "5323d7e5.5956d8",
+        "name": "refactor-payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t {\t   \"appeui\": payload.meta_data.appeui,\t   \"fcnt\": payload.meta_data.fcnt,\t   \"rcv_time\": payload.meta_data.rcv_time,\t   \"rcv_time_iso8601\": payload.meta_data.rcv_time_ISO8601,\t   \"rssi\": payload.meta_data.rx_info.rssi,\t   \"snr\": payload.meta_data.rx_info.snr,\t   \"frequency\": payload.meta_data.tx_info.frequency,\t   \"spreading\": payload.meta_data.tx_info.spreading,\t   \"bandwidth\": payload.meta_data.tx_info.bandwidth,\t   \"reed_switch\": payload.decoded_data.reed_switch.value,\t   \"reed_count\": payload.decoded_data.'reed count'.value,   \t   \"ambient light\": payload.decoded_data.'ambient light intensity'.value,\t   \"ambient_temperature\": payload.decoded_data.'ambient temperature'.value,\t   \"ambient_humidity\": payload.decoded_data.'ambient RH'.value,\t   \"soil_moisture\": payload.decoded_data.'soil moisture'.value,\t   \"soil_temperature\": payload.decoded_data.'soil temperature'.value,\t   \"soil_moisture_1\": payload.decoded_data.'soil_moisture 1'.value,\t   \"soil_moisture_2\": payload.decoded_data.'soil_moisture 2'.value,\t   \"soil_moisture_3\": payload.decoded_data.'soil_moisture 3'.value,\t   \"soil_moisture_4\": payload.decoded_data.'soil_moisture 4'.value,\t   \"soil_moisture_5\": payload.decoded_data.'soil_moisture 5'.value,\t   \"soil_temperature_6\": payload.decoded_data.'soil_temperature 6'.value,\t   \"soil_temperature_7\": payload.decoded_data.'soil_temperature 7'.value,\t   \"soil_temperature_8\": payload.decoded_data.'soil_temperature 8'.value,\t   \"soil_temperature_9\": payload.decoded_data.'soil_temperature 9'.value,\t   \"soil_temperature_10\": payload.decoded_data.'soil_temperature 10'.value,\t   \"panel_temperature\": payload.decoded_data.'ambient temperature 11'.value,\t   \"panel_humidity\":  payload.decoded_data.'humidty 12'.value,\t   \"panel_battery\": payload.decoded_data.'battery_level 0'.value,\t   \"battery_remaining\": payload.decoded_data.battery_remaining_lifetime.value,\t   \"humidity\": payload.decoded_data.RH.value,\t   \"motion_detected\": payload.decoded_data.'motion detected'.value\t },{\t   \"device\": payload.meta_data.deveui,\t   \"gateway\": payload.meta_data.rx_info.mac\t }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "e3e47303.2a889",
+                "cff1377a.cc3138"
+            ]
+        ]
+    },
+    {
+        "id": "42177778.e4eda8",
+        "type": "debug",
+        "z": "5323d7e5.5956d8",
+        "name": "gotmqtt",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "cff1377a.cc3138",
+        "type": "debug",
+        "z": "5323d7e5.5956d8",
+        "name": "clean-payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "76baaf6b.44c0c",
+        "type": "mqtt in",
+        "z": "394b4e21.d66622",
+        "name": "MQTT-SMU",
+        "topic": "/client2/devices/#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "dd1c5723.41d748",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "f62f201b.f316d",
+                "51913d8f.b15824"
+            ]
+        ]
+    },
+    {
+        "id": "c388d4f6.ea9188",
+        "type": "influxdb out",
+        "z": "394b4e21.d66622",
+        "influxdb": "6c5bf526.9cf42c",
+        "name": "store-data",
+        "measurement": "client2",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 590,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f62f201b.f316d",
+        "type": "change",
+        "z": "394b4e21.d66622",
+        "name": "transform-data",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t {\t   \"appeui\": payload.meta_data.appeui,\t   \"fcnt\": payload.meta_data.fcnt,\t   \"rcv_time\": payload.meta_data.rcv_time,\t   \"rcv_time_iso8601\": payload.meta_data.rcv_time_ISO8601,\t   \"rssi\": payload.meta_data.rx_info.rssi,\t   \"snr\": payload.meta_data.rx_info.snr,\t   \"frequency\": payload.meta_data.tx_info.frequency,\t   \"spreading\": payload.meta_data.tx_info.spreading,\t   \"bandwidth\": payload.meta_data.tx_info.bandwidth,\t   \"reed_switch\": payload.decoded_data.reed_switch.value,\t   \"reed_count\": payload.decoded_data.'reed count'.value,   \t   \"ambient light\": payload.decoded_data.'ambient light intensity'.value,\t   \"ambient_temperature\": payload.decoded_data.'ambient temperature'.value,\t   \"ambient_humidity\": payload.decoded_data.'ambient RH'.value,\t   \"soil_moisture\": payload.decoded_data.'soil moisture'.value,\t   \"soil_temperature\": payload.decoded_data.'soil temperature'.value,\t   \"battery_remaining\": payload.decoded_data.battery_remaining_lifetime.value,\t   \"humidity\": payload.decoded_data.RH.value,\t   \"motion_detected\": payload.decoded_data.'motion detected'.value,\t   \"temperature\": payload.decoded_data.temperature.value,\t   \"ul_count\": payload.decoded_data.ul_count.value,\t   \"dl_count\": payload.decoded_data.dl_count.value,\t   \"battery_level\": payload.decoded_data.battery_level.value,\t   \"decoded_rssi\": payload.decoded_data.rssi.value,\t   \"decoded_snr\": payload.decoded_data.snr.value\t },{\t    \"device\": payload.meta_data.deveui,\t    \"gateway\": payload.meta_data.rx_info.mac\t }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 133,
+        "wires": [
+            [
+                "c388d4f6.ea9188",
+                "a3d0fcac.984d5"
+            ]
+        ]
+    },
+    {
+        "id": "a3d0fcac.984d5",
+        "type": "debug",
+        "z": "394b4e21.d66622",
+        "name": "print-transformed",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "51913d8f.b15824",
+        "type": "debug",
+        "z": "394b4e21.d66622",
+        "name": "print-mqtt-received",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "4b6498ea.f5fe08",
+        "type": "mqtt in",
+        "z": "5323d7e5.5956d8",
+        "name": "Get client2 from MQTT",
+        "topic": "/client2/devices/#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "dd1c5723.41d748",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "9d101759.bc4a48"
+            ]
+        ]
+    },
+    {
+        "id": "e8ab82f4.d8ce7",
+        "type": "change",
+        "z": "a25dc534.d849a8",
+        "name": "refactor-payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\t {\t   \"fcnt\": payload.counter,\t   \"rcv_time\": payload.meta_data.time,\t   \"frequency\": payload.meta_data.frequency,\t   \"data_rate\": payload.meta_data.data_rate,   \t   \"airtime\": payload.meta_data.airtime,\t   \"reed_switch\": payload.payload_fields.reed_state,\t   \"reed_count\": payload.payload_fields.reed_count,\t   \"rssi\": payload.meta_data.gateways.rssi,\t   \"snr\": payload.meta_data.gateways.snr,\t   \"spreading\": payload.meta_data.tx_info.spreading,\t   \"bandwidth\": payload.meta_data.tx_info.bandwidth,\t   \"temperature\": payload.payload_fields.temperature\t   },{\t   \"device\": payload.hardware.serial,\t   \"app_id\": payload.app_id,\t   \"dev_id\": payload.dev_id\t }\t]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 220,
+        "wires": [
+            [
+                "f4318937.4de9d8",
+                "93a28c42.d401f"
+            ]
+        ]
+    },
+    {
+        "id": "873b319a.24315",
+        "type": "mqtt in",
+        "z": "a25dc534.d849a8",
+        "name": "",
+        "topic": "avd-app1/devices/#",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "6c415776.2cb5b8",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "339ab3f0.539a6c",
+                "b9ac1cd3.44e2d"
+            ]
+        ]
+    },
+    {
+        "id": "f4318937.4de9d8",
+        "type": "influxdb out",
+        "z": "a25dc534.d849a8",
+        "influxdb": "1a652118.8923af",
+        "name": "Storeit-ttn",
+        "measurement": "ttn",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 740,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "93a28c42.d401f",
+        "type": "debug",
+        "z": "a25dc534.d849a8",
+        "name": "TTN-Out",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "339ab3f0.539a6c",
+        "type": "debug",
+        "z": "a25dc534.d849a8",
+        "name": "TTN-In",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "67df6746.8970f8",
+        "type": "debug",
+        "z": "a25dc534.d849a8",
+        "name": "NoNulls",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b9ac1cd3.44e2d",
+        "type": "function",
+        "z": "a25dc534.d849a8",
+        "name": "DropNulls",
+        "func": "for (var prop in msg.payload.payload_fields) { \n    if (msg.payload.payload_fields[prop] === null || msg.payload.payload_fields[prop] === undefined) { \n        delete msg.payload.payload_fields[prop]; \n    } \n} \nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 340,
+        "y": 220,
+        "wires": [
+            [
+                "67df6746.8970f8",
+                "e8ab82f4.d8ce7"
+            ]
+        ]
+    }
+]
