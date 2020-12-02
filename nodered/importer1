@@ -14,7 +14,29 @@
         "info": ""
     },
     {
-        "id": "a25dc534.d849a8",
+        "id": "a25dc534.d849a8",[{
+	"id": "e8ab82f4.d8ce7",
+	"type": "change",
+	"z": "a25dc534.d849a8",
+	"name": "refactor-payload",
+	"rules": [{
+		"t": "set",
+		"p": "payload",
+		"pt": "msg",
+		"to": "[\t {\t   \"fcnt\": payload.counter,\t   \"rcv_time\": payload.metadata.time,\t   \"frequency\": payload.metadata.frequency,\t   \"data_rate\": payload.metadata.data_rate,\t   \"coding_rate\": payload.metadata.coding_rate,   \t   \"airtime\": payload.metadata.airtime,\t   \"rssi\": payload.metadata.gateways[0].rssi,\t   \"rssi2\": payload.metadata.gateways[1].rssi,\t   \"snr\": payload.metadata.gateways[0].snr,\t   \"snr2\": payload.metadata.gateways[1].snr,\t   \"temperature\": payload.payload_fields.temperature,\t   \"humidity\": payload.payload_fields.humidity,\t   \"reed_switch\": payload.payload_fields.reed_state,\t   \"reed_count\": payload.payload_fields.reed_count\t   },{\t   \"device\": payload.hardware_serial,\t   \"app_id\": payload.app_id,\t   \"dev_id\": payload.dev_id,\t   \"gateway\": payload.metadata.gateways[0].gtw_id,\t   \"gateway2\": payload.metadata.gateways[1].gtw_id\t }\t]",
+		"tot": "jsonata"
+	}],
+	"action": "",
+	"property": "",
+	"from": "",
+	"to": "",
+	"reg": false,
+	"x": 540,
+	"y": 220,
+	"wires": [
+		["f4318937.4de9d8", "93a28c42.d401f"]
+	]
+}]
         "type": "tab",
         "label": "TTN",
         "disabled": false,
